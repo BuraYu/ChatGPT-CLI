@@ -4,9 +4,9 @@ const App = () => {
   return (
     <div className='app'>
       <section className='side-bar'>
-        <button>+ New Chat</button>
-        <ul className="history">
-
+        <button className='side-bar--button'>+ New Chat</button>
+        <ul className="side-bar--history">
+          <li>test</li>
         </ul>
         <nav>
           <p>buriburi</p>
