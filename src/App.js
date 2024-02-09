@@ -1,10 +1,23 @@
 import './App.css';
-import InputCli from './components/InputCli/InputCli';
 
-function App() {
+const App = () => {
   return (
-      <InputCli/>
-  );
+    <div className='app'>
+      <section className='side-bar'>
+        <button>+ New Chat</button>
+        <ul className="history">
+
+        </ul>
+        <nav>
+          <p>buriburi</p>
+        </nav>
+
+      
+      </section>
+      <section className='main'></section>
+    </div>
+  )
 }
 
 export default App;
+ 
