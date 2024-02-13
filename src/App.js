@@ -1,6 +1,9 @@
 import "./App.css";
+import { useState, useEffect } from "react";
 
 const App = () => {
+  const [message, setMessage] = useState(null);
+
   const getMessages = async () => {
     try {
       await fetch("http://localhost:8000/completions");
@@ -13,6 +16,7 @@ const App = () => {
           "Content-Type": "application/json",
         },
       };
+      setMessage(data.choices[0].message);
     } catch (error) {
       console.error(error);
     }
