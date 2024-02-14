@@ -9,7 +9,7 @@ const App = () => {
     const options = {
       method: "POST",
       body: JSON.stringify({
-        message: "hello!",
+        message: value,
       }),
       headers: {
         "Content-Type": "application/json",
