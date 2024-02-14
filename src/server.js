@@ -23,7 +23,7 @@ app.post("/completions", async (req, res) => {
       //prettier-ignore
       "model": "gpt-3.5-turbo",
       //prettier-ignore
-      "messages": [{"role": "user", "content": "Hello!"}],
+      "messages": [{"role": "user", "content": req.body.message}],
       //prettier-ignore
       "max_tokens": 512,
       //prettier-ignore

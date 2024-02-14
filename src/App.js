@@ -2,13 +2,16 @@ import "./App.css";
 import { useState, useEffect } from "react";
 
 const App = () => {
+  const [value, setValue] = useState(null);
   const [message, setMessage] = useState(null);
+  const [previousChats, setpreviousChats] = useState(null);
+  const [currentTitle, SetCurrentTitle] = useState(null);
 
   const getMessages = async () => {
     const options = {
       method: "POST",
       body: JSON.stringify({
-        message: "hello!",
+        message: value,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -21,12 +24,36 @@ const App = () => {
         options
       );
       const data = await response.json();
-      // setMessage(data.choices[0].message);
+      setMessage(data.choices[0].message);
       console.log(data);
     } catch (error) {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    console.log(currentTitle, value, message);
+    if (!currentTitle && value && message) {
+      SetCurrentTitle(value);
+    }
+    if (currentTitle && value && message) {
+      setpreviousChats(
+        (previousChats) => (
+          [...previousChats],
+          {
+            title: currentTitle,
+            role: "user",
+            content: value,
+          },
+          {
+            title: currentTitle,
+            role: message.role,
+            content: message.content,
+          }
+        )
+      );
+    }
+  }, [message, currentTitle]);
 
   return (
     <div className="app">
@@ -44,7 +71,7 @@ const App = () => {
         <ul className="main--feed"></ul>
         <div className="main--bottom-section">
           <div className="main--input-container">
-            <input />
+            <input value={value} onChange={(e) => setValue(e.target.value)} />
             <div id="submit" onClick={getMessages}>
               &gt;
             </div>
