@@ -2,6 +2,7 @@ import "./App.css";
 import { useState, useEffect } from "react";
 
 const App = () => {
+  const [value, setValue] = useState(null);
   const [message, setMessage] = useState(null);
 
   const getMessages = async () => {
@@ -21,13 +22,13 @@ const App = () => {
         options
       );
       const data = await response.json();
-      // setMessage(data.choices[0].message);
+      setMessage(data.choices[0].message);
       console.log(data);
     } catch (error) {
       console.error(error);
     }
   };
-
+  console.log(value);
   return (
     <div className="app">
       <section className="side-bar">
@@ -44,7 +45,7 @@ const App = () => {
         <ul className="main--feed"></ul>
         <div className="main--bottom-section">
           <div className="main--input-container">
-            <input />
+            <input value={value} onChange={(e) => setValue(e.target.value)} />
             <div id="submit" onClick={getMessages}>
               &gt;
             </div>
