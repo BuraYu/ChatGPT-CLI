@@ -1,3 +1,4 @@
+require("dotenv").config({ path: "./src/.env" });
 const PORT = 8000;
 const express = require("express");
 const cors = require("cors");
@@ -7,26 +8,32 @@ app.use(express.json());
 app.use(cors());
 
 const API_KEY = process.env.API_KEY;
-console.log(API_KEY);
 
 app.listen(PORT, () => console.log("Server is running at PORT " + PORT));
 
 app.post("/completions", async (req, res) => {
   const options = {
     method: "POST",
-    header: {
-      Authorization: `Bearer ${API_KEY}`,
+    headers: {
+      //prettier-ignore
+      "Authorization": `Bearer ${API_KEY}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      model: "gpt-3.5-turbo",
-      message: [
-        {
-          role: "user",
-          content: "What model are you running",
-        },
-      ],
-      max_tokes: 100,
+      //prettier-ignore
+      "model": "gpt-3.5-turbo",
+      //prettier-ignore
+      "messages": [{"role": "user", "content": "Hello!"}],
+      //prettier-ignore
+      "max_tokens": 512,
+      //prettier-ignore
+      "top_p": 1,
+      //prettier-ignore
+      "temperature": 0.5,
+      //prettier-ignore
+      "frequency_penalty": 0,
+      //prettier-ignore
+      "presence_penalty": 0,
     }),
   };
 
