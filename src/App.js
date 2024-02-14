@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 const App = () => {
   const [value, setValue] = useState(null);
   const [message, setMessage] = useState(null);
+  const [previousChats, setpreviousChats] = useState(null);
+  const [currentTitle, SetCurrentTitle] = useState(null);
 
   const getMessages = async () => {
     const options = {
@@ -28,7 +30,31 @@ const App = () => {
       console.error(error);
     }
   };
-  console.log(value);
+
+  useEffect(() => {
+    console.log(currentTitle, value, message);
+    if (!currentTitle && value && message) {
+      SetCurrentTitle(value);
+    }
+    if (currentTitle && value && message) {
+      setpreviousChats(
+        (previousChats) => (
+          [...previousChats],
+          {
+            title: currentTitle,
+            role: "user",
+            content: value,
+          },
+          {
+            title: currentTitle,
+            role: message.role,
+            content: message.content,
+          }
+        )
+      );
+    }
+  }, [message, currentTitle]);
+
   return (
     <div className="app">
       <section className="side-bar">
