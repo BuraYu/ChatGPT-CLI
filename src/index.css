@@ -105,3 +105,21 @@ input:focus {
   width: 100%;
   padding: 0;
 }
+
+.main--feed li {
+  display: flex;
+  background-color: #444654;
+  width: 100%;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.main--fed p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  text-align: left;
+}
+
+.main--feed p.role {
+  min-width: 100px;
+}
