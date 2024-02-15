@@ -4,8 +4,20 @@ import { useState, useEffect } from "react";
 const App = () => {
   const [value, setValue] = useState(null);
   const [message, setMessage] = useState(null);
-  const [previousChats, setpreviousChats] = useState(null);
-  const [currentTitle, SetCurrentTitle] = useState(null);
+  const [previousChats, setPreviousChats] = useState([]);
+  const [currentTitle, setCurrentTitle] = useState(null);
+
+  const createNewChat = () => {
+    setMessage(null);
+    setValue("");
+    setCurrentTitle(null);
+  };
+
+  const handleClick = (uniqueTitle) => {
+    setCurrentTitle(uniqueTitle);
+    setMessage(null);
+    setValue("");
+  };
 
   const getMessages = async () => {
     const options = {
@@ -34,33 +46,44 @@ const App = () => {
   useEffect(() => {
     console.log(currentTitle, value, message);
     if (!currentTitle && value && message) {
-      SetCurrentTitle(value);
+      setCurrentTitle(value);
     }
     if (currentTitle && value && message) {
-      setpreviousChats(
-        (previousChats) => (
-          [...previousChats],
-          {
-            title: currentTitle,
-            role: "user",
-            content: value,
-          },
-          {
-            title: currentTitle,
-            role: message.role,
-            content: message.content,
-          }
-        )
-      );
+      setPreviousChats((previousChats) => [
+        ...previousChats,
+        {
+          title: currentTitle,
+          role: "user",
+          content: value,
+        },
+        {
+          title: currentTitle,
+          role: message.role,
+          content: message.content,
+        },
+      ]);
     }
   }, [message, currentTitle]);
+
+  const currentChat = previousChats.filter(
+    (previousChats) => previousChats.title === currentTitle
+  );
+  const uniqueTitle = Array.from(
+    new Set(previousChats.map((previousChats) => previousChats.title))
+  );
 
   return (
     <div className="app">
       <section className="side-bar">
-        <button className="side-bar--button">+ New Chat</button>
+        <button className="side-bar--button" onClick={createNewChat}>
+          + New Chat
+        </button>
         <ul className="side-bar--history">
-          <li>test</li>
+          {uniqueTitle?.map((uniqueTitle, index) => (
+            <li key={index} onClick={() => handleClick(uniqueTitle)}>
+              {uniqueTitle}
+            </li>
+          ))}
         </ul>
         <nav>
           <p>buriburi</p>
@@ -68,7 +91,14 @@ const App = () => {
       </section>
       <section className="main">
         <h1>buriburiGPT</h1>
-        <ul className="main--feed"></ul>
+        <ul className="main--feed">
+          {currentChat?.map((chatMessage, index) => (
+            <li key={index}>
+              <p className="role">{chatMessage.role}</p>
+              <p>{chatMessage.content}</p>
+            </li>
+          ))}
+        </ul>
         <div className="main--bottom-section">
           <div className="main--input-container">
             <input value={value} onChange={(e) => setValue(e.target.value)} />
