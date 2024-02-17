@@ -111,7 +111,22 @@ const App = () => {
         <button className="side-bar--button" onClick={createNewChat}>
           + New Chat
         </button>
-        <Select options={options} />
+        <Select
+          options={options}
+          className="side-bar--select"
+          theme={(theme) => ({
+            ...theme,
+            borderRadius: 0,
+            colors: {
+              ...theme.colors,
+              primary25: "#79c2d0",
+              primary: "#5585b5",
+              neutral0: "#5c5470",
+              neutral60: "white",
+              neutral80: "white",
+            },
+          })}
+        />
         <ul className="side-bar--history">
           {uniqueTitle?.map((uniqueTitle, index) => (
             <li key={index} onClick={() => handleClick(uniqueTitle)}>
