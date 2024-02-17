@@ -1,5 +1,6 @@
 import "./App.css";
 import { useState, useEffect } from "react";
+import Select from "react-select";
 
 const App = () => {
   const [value, setValue] = useState(null);
@@ -18,6 +19,38 @@ const App = () => {
     setMessage(null);
     setValue("");
   };
+
+  const options = [
+    { value: "gpt-4-0125-preview", label: "GPT 4 0125" },
+    { value: "gpt-4-turbo-preview", label: "GPT 4 Turbo" },
+    { value: "gpt-4-1106-preview", label: "GPT 4 1106" },
+    { value: "gpt-4-vision-preview", label: "GPT 4 Vision" },
+    { value: "gpt-4-1106-vision-preview", label: "GPT 4 1106 Vision" },
+    { value: "gpt-4", label: "GPT 4" },
+    { value: "gpt-4-0613", label: "GPT 4 0613" },
+    { value: "gpt-4-32k", label: "GPT 4 32k" },
+    { value: "gpt-4-32k-0613", label: "GPT 4 32k 0613" },
+    { value: "gpt-3.5-turbo-0125", label: "GPT 3.5 Turbo 0125" },
+    { value: "gpt-3.5-turbo", label: "GPT 3.5 Turbo" },
+    { value: "gpt-3.5-turbo-1106", label: "GPT 3.5 Turbo 1106" },
+    { value: "gpt-3.5-turbo-instruct", label: "GPT 3.5 Turbo Instruct" },
+    { value: "gpt-3.5-turbo-16k", label: "GPT 3.5 Turbo 16k" },
+    { value: "gpt-3.5-turbo-0613", label: "GPT 3.5 Turbo 0613" },
+    { value: "gpt-3.5-turbo-16k-0613", label: "GPT 3.5 Turbo 16k 0613" },
+    { value: "dall-e-3", label: "DALL·E 3" },
+    { value: "dall-e-2", label: "DALL·E 2" },
+    { value: "tts-1", label: "Text-to-speech 1" },
+    { value: "tts-1-hd", label: "Text-to-speech 1 HD" },
+    { value: "whisper-1", label: "Whisper 1" },
+    { value: "text-embedding-3-large", label: "Text Embedding 3 Large" },
+    { value: "text-embedding-3-small", label: "Text Embedding 3 Small" },
+    { value: "text-embedding-ada-002", label: "Text Embedding ADA 002" },
+    { value: "text-moderation-latest", label: "Text Moderation Latest" },
+    { value: "text-moderation-stable", label: "Text Moderation Stable" },
+    { value: "text-moderation-007", label: "Text Moderation 007" },
+    { value: "babbage-002", label: "Babbage 002" },
+    { value: "davinci-002", label: "Davinci 002" },
+  ];
 
   const getMessages = async () => {
     const options = {
@@ -75,9 +108,26 @@ const App = () => {
   return (
     <div className="app">
       <section className="side-bar">
+        <Select
+          options={options}
+          className="side-bar--select"
+          theme={(theme) => ({
+            ...theme,
+            borderRadius: 0,
+            colors: {
+              ...theme.colors,
+              primary25: "#79c2d0",
+              primary: "#5585b5",
+              neutral0: "#5c5470",
+              neutral60: "white",
+              neutral80: "white",
+            },
+          })}
+        />
         <button className="side-bar--button" onClick={createNewChat}>
           + New Chat
         </button>
+
         <ul className="side-bar--history">
           {uniqueTitle?.map((uniqueTitle, index) => (
             <li key={index} onClick={() => handleClick(uniqueTitle)}>

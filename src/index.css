@@ -123,3 +123,8 @@ input:focus {
 .main--feed p.role {
   min-width: 100px;
 }
+
+.side-bar--select {
+  border-radius: 5px;
+  padding: 10px;
+}
