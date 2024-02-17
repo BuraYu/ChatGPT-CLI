@@ -108,9 +108,6 @@ const App = () => {
   return (
     <div className="app">
       <section className="side-bar">
-        <button className="side-bar--button" onClick={createNewChat}>
-          + New Chat
-        </button>
         <Select
           options={options}
           className="side-bar--select"
@@ -127,6 +124,10 @@ const App = () => {
             },
           })}
         />
+        <button className="side-bar--button" onClick={createNewChat}>
+          + New Chat
+        </button>
+
         <ul className="side-bar--history">
           {uniqueTitle?.map((uniqueTitle, index) => (
             <li key={index} onClick={() => handleClick(uniqueTitle)}>
